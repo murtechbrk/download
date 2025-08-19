@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>MURTECH İndirme Merkezi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #003366, #0055aa);
+      margin: 0; padding: 0;
+      display: flex; justify-content: center; align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    .logo {
+      max-width: 200px;
+      margin-bottom: 0px;
+    }
+    h1 { color: #003366; margin-bottom: 20px; }
+    input[type=password] { 
+		padding: 10px; 
+		width: 200px;   /* sabit genişlik */
+		margin: 10px 0; 
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		text-align: center;
+		font-size: 14px;
+						}
+
+	button { 
+		padding: 10px; 
+		width: 100px;   /* input ile aynı genişlik */
+		border: none; 
+		background: #003366; 
+		color: white; 
+		cursor: pointer; 
+		border-radius: 5px; 
+		font-size: 14px;
+			}
+
+	button:hover { 
+		background: #0055aa; 
+			}
+    #error { margin-top: 10px; color: red; }
+    /* İçerik */
+    #content {
+      display: none;
+      max-width: 1000px;
+      width: 90%;
+      margin: 30px auto;
+      padding: 20px;
+    }
+    .category {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+    .category h2 {
+      margin-top: 0;
+      color: #003366;
+      border-bottom: 2px solid #003366;
+      padding-bottom: 5px;
+    }
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { margin: 12px 0; }
+    a {
+      text-decoration: none;
+      font-size: 16px;
+      color: #0055aa;
+      font-weight: 500;
+    }
+    a:hover { text-decoration: underline; }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header img {
+      max-width: 220px;
+      margin-bottom: 15px;
+    }
+    .header h1 {
+      color: #003366;
+      font-size: 26px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Login ekranı -->
+<div id="login" class="card">
+  <img src="LOGO2.jpg" alt="MURTECH Logo" class="logo">
+  <h1>🔐 Giriş Yap</h1>
+  <p>Lütfen şifrenizi girin:</p>
+  <input type="password" id="password" placeholder="Şifre" onkeypress="handleKey(event)">
+
+  <button onclick="checkPassword()">Giriş</button>
+  <p id="error"></p>
+</div>
+
+<!-- İçerik -->
+<div id="content">
+  <div class="header">
+    <h1>📥 MURTECH İndirme Merkezi</h1>
+  </div>
+
+  <div class="category">
+    <h2>💻 MACH 3</h2>
+    <ul>
+      <li><a href="https://drive.google.com/file/d/1Exbo4IK-7CvBZgMx8yEzxV6Qaz11m0SI/view?usp=sharing" target="_blank">MACH3 Setup</a></li>
+      <li><a href="https://drive.google.com/file/d/1qFFRzr8h-I3deYKot1syYXTg1kBAOBxm/view?usp=sharing" target="_blank">MACH3 Lisans</a></li>
+      <li><a href="https://drive.google.com/file/d/1Rffn-cnw47T0odpHGxhpMbqUVwGQpHS5/view?usp=sharing" target="_blank">Murtech Dark Screenset</a></li>
+      <li><a href="#">Murtech Light Screenset</a></li>
+    </ul>
+  </div>
+
+  <div class="category">
+    <h2>🔧 MACH 3 Makine Ayarları</h2>
+    <ul>
+      <li><a href="https://drive.google.com/file/d/1FT_U-3BjwTWUaIDTK6iMzAWy2d21wMbx/view?usp=sharing" target="_blank">Rapide</a></li>
+      <li><a href="https://drive.google.com/file/d/1D8HsKEIsVQE_CAFS9PVieBtdxq5XTRB3/view?usp=sharing" target="_blank">Jovi XPS</a></li>
+      <li><a href="https://drive.google.com/file/d/1b0xE6g9-aLNYNvmIw5-6Ur8EjHWL0E5G/view?usp=sharing" target="_blank">Trexa</a></li>
+      <li><a href="https://drive.google.com/file/d/13gSMMCo4ldJeLXmofMdYHsBqOuZQXZJW/view?usp=sharing" target="_blank">Stro 4B</a></li>
+      <li><a href="https://drive.google.com/file/d/13gSMMCo4ldJeLXmofMdYHsBqOuZQXZJW/view?usp=sharing" target="_blank">Stro Eco</a></li>
+    </ul>
+  </div>
+
+  <div class="category">
+    <h2>💻 ArtCAM</h2>
+    <ul>
+      <li><a href="https://drive.google.com/file/d/1gzudlUmYKZRfO-3Zk_J6mYE9KiuD1LfH/view?usp=sharing" target="_blank">ArtCAM 2012</a></li>
+      <li><a href="https://drive.google.com/file/d/1oYxB5s64ZDjJJsg2T0-gVLEDlltYV4fE/view?usp=sharing" target="_blank">ArtCAM 2008</a></li>
+      <li><a href="https://drive.google.com/file/d/1jSvdH1UWeoKKStjTWHaDPnxAmTztw7Tw/view?usp=sharing" target="_blank">Hızlı Tel Postprocessor</a></li>
+      <li><a href="https://drive.google.com/file/d/1bh7nbJl-biFkNzzhGSbbseY4bLypdyHq/view?usp=sharing" target="_blank">Sıcak Tel Postprocessor</a></li>
+    </ul>
+  </div>
+
+  <div class="category">
+    <h2>🖌️ CorelDRAW</h2>
+    <ul>
+      <li><a href="https://drive.google.com/file/d/1oWArWn6hBp1fbypxuYl_3iXvh71S8m9E/view?usp=sharing" target="_blank">Corel 12 TR</a></li>
+      <li><a href="#">Corel 12 ENG</a></li>
+    </ul>
+  </div>
+
+  <div class="category">
+    <h2>💻 DevFoam</h2>
+    <ul>
+      <li><a href="https://drive.google.com/file/d/1qRcE1G3WN96ZxtpUGti_JfWsxXEgkOnG/view?usp=sharing" target="_blank">DevFoam Pro 3</a></li>
+      <li><a href="https://drive.google.com/file/d/1eVXQcOIjkmD1ox--3bq11_jB0iODNgx0/view?usp=sharing" target="_blank">2 Eksen Eğitim</a></li>
+      <li><a href="https://drive.google.com/file/d/1NrJXOC2NktCqUpswqlzxRq9xFsk3XtHk/view?usp=sharing" target="_blank">4 Eksen Eğitim</a></li>
+      <li><a href="https://drive.google.com/file/d/1z9RK0aTFjvap-6kIsGrS90QyeZXGkwMo/view?usp=sharing" target="_blank">Yol Verme</a></li>
+    </ul>
+  </div>
+
+  <div class="category">
+    <h2>💻 Sürücüler</h2>
+    <ul>
+      <li><a href="https://drive.google.com/file/d/1VeksWigaxQI4ERtBPc2GrY0a6rRa1NPZ/view?usp=sharing" target="_blank">Shinlin Servo</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  function checkPassword() {
+    const pass = document.getElementById("password").value;
+    const correctPass = "servis123"; // şifreyi buradan değiştir
+    if(pass === correctPass){
+      document.getElementById("login").style.display = "none";
+      document.body.style.background = "#f7f7f7";
+      document.getElementById("content").style.display = "block";
+    } else {
+      document.getElementById("error").innerText = "❌ Hatalı şifre!";
+    }
+  }
+
+  function handleKey(event) {
+    if(event.key === "Enter") {
+      checkPassword();
+    }
+  }
+</script>
+
+
+</body>
+</html>
