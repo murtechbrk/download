@@ -5,192 +5,581 @@
   <title>MURTECH İndirme Merkezi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #003366, #0055aa);
-      margin: 0; padding: 0;
-      display: flex; justify-content: center; align-items: center;
-      min-height: 100vh;
+    * {
+      box-sizing: border-box;
     }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #003366, #0055aa);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      transition: all 0.3s ease;
+    }
+    
     .card {
       background: #fff;
-      border-radius: 12px;
-      padding: 30px;
+      border-radius: 16px;
+      padding: 40px;
       width: 100%;
-      max-width: 420px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      max-width: 450px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
       text-align: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
     }
+    
     .logo {
       max-width: 200px;
-      margin-bottom: 0px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
     }
-    h1 { color: #003366; margin-bottom: 20px; }
+    
+    h1 { 
+      color: #003366; 
+      margin-bottom: 20px; 
+      font-size: 24px;
+      font-weight: 600;
+    }
+    
+    .input-group {
+      position: relative;
+      margin: 20px 0;
+    }
+    
     input[type=password] { 
-		padding: 10px; 
-		width: 200px;   /* sabit genişlik */
-		margin: 10px 0; 
-		border: 1px solid #ccc;
-		border-radius: 5px;
-		text-align: center;
-		font-size: 14px;
-						}
+      padding: 15px 20px; 
+      width: 100%;
+      max-width: 280px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+    
+    input[type=password]:focus {
+      border-color: #0055aa;
+      box-shadow: 0 0 0 3px rgba(0, 85, 170, 0.1);
+    }
 
-	button { 
-		padding: 10px; 
-		width: 100px;   /* input ile aynı genişlik */
-		border: none; 
-		background: #003366; 
-		color: white; 
-		cursor: pointer; 
-		border-radius: 5px; 
-		font-size: 14px;
-			}
+    button { 
+      padding: 15px 30px; 
+      min-width: 120px;
+      border: none; 
+      background: linear-gradient(45deg, #003366, #0055aa); 
+      color: white; 
+      cursor: pointer; 
+      border-radius: 12px; 
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 51, 102, 0.3);
+    }
 
-	button:hover { 
-		background: #0055aa; 
-			}
-    #error { margin-top: 10px; color: red; }
-    /* İçerik */
+    button:hover { 
+      background: linear-gradient(45deg, #0055aa, #0077cc);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 51, 102, 0.4);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    #error { 
+      margin-top: 15px; 
+      color: #e74c3c; 
+      font-weight: 500;
+      padding: 10px;
+      border-radius: 8px;
+      background: rgba(231, 76, 60, 0.1);
+    }
+    
+    /* Content Styles */
     #content {
       display: none;
-      max-width: 1000px;
-      width: 90%;
-      margin: 30px auto;
+      max-width: 1200px;
+      width: 95%;
+      margin: 20px auto;
       padding: 20px;
     }
-    .category {
-      background: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      margin: 20px 0;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    }
-    .category h2 {
-      margin-top: 0;
-      color: #003366;
-      border-bottom: 2px solid #003366;
-      padding-bottom: 5px;
-    }
-    ul { list-style: none; padding: 0; margin: 0; }
-    li { margin: 12px 0; }
-    a {
-      text-decoration: none;
-      font-size: 16px;
-      color: #0055aa;
-      font-weight: 500;
-    }
-    a:hover { text-decoration: underline; }
+    
     .header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
     }
-    .header img {
-      max-width: 220px;
-      margin-bottom: 15px;
-    }
+    
     .header h1 {
       color: #003366;
-      font-size: 26px;
+      font-size: 32px;
+      margin: 0;
+      font-weight: 700;
+    }
+    
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+    }
+    
+    .category {
+      background: #fff;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .category:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+    }
+    
+    .category h2 {
+      margin: 0 0 20px 0;
+      color: #003366;
+      font-size: 20px;
+      font-weight: 600;
+      padding: 0 0 15px 0;
+      border-bottom: 3px solid #003366;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .category-icon {
+      font-size: 24px;
+    }
+    
+    ul { 
+      list-style: none; 
+      padding: 0; 
+      margin: 0; 
+    }
+    
+    li { 
+      margin: 15px 0; 
+    }
+    
+    .download-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: #333;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .download-item:hover {
+      background: #e3f2fd;
+      transform: translateX(5px);
+      text-decoration: none;
+      color: #0055aa;
+      border-color: #0055aa;
+    }
+    
+    .download-icon {
+      margin-right: 12px;
+      font-size: 18px;
+      color: #0055aa;
+    }
+    
+    .download-text {
+      font-weight: 500;
+      font-size: 16px;
+    }
+    
+    .status-indicator {
+      margin-left: auto;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    
+    .status-active {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .status-inactive {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    /* Search functionality */
+    .search-container {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    
+    .search-box {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    
+    .search-box:focus {
+      border-color: #0055aa;
+      box-shadow: 0 0 0 3px rgba(0, 85, 170, 0.1);
+    }
+    
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      .card {
+        margin: 20px;
+        padding: 30px 25px;
+      }
+      
+      .categories-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .header h1 {
+        font-size: 24px;
+      }
+      
+      input[type=password] {
+        max-width: 100%;
+      }
+    }
+    
+    /* Loading animation */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Scroll to top button */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(45deg, #003366, #0055aa);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      box-shadow: 0 6px 20px rgba(0, 51, 102, 0.3);
+      transition: all 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      z-index: 1000;
+    }
+    
+    .scroll-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    
+    .scroll-to-top:hover {
+      background: linear-gradient(45deg, #0055aa, #0077cc);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 51, 102, 0.4);
+    }
+    
+    .scroll-to-top:active {
+      transform: translateY(-1px);
     }
   </style>
 </head>
 <body>
 
-<!-- Login ekranı -->
+<!-- Login Screen -->
 <div id="login" class="card">
-  <img src="LOGO2.jpg" alt="MURTECH Logo" class="logo">
-  <h1>🔐 Giriş Yap</h1>
-  <p>Lütfen şifrenizi girin:</p>
-  <input type="password" id="password" placeholder="Şifre" onkeypress="handleKey(event)">
-
-  <button onclick="checkPassword()">Giriş</button>
-  <p id="error"></p>
+  <div class="logo-placeholder" style="width: 200px; height: 80px; background: #f0f0f0; border-radius: 8px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: #666;">MURTECH LOGO</div>
+  <h1>🔐 Güvenli Giriş</h1>
+  <p style="color: #666; margin-bottom: 25px;">İndirme merkezine erişmek için şifrenizi girin</p>
+  
+  <div class="input-group">
+    <input type="password" id="password" placeholder="Şifrenizi girin" onkeypress="handleKey(event)">
+  </div>
+  
+  <button onclick="checkPassword()" id="loginBtn">
+    <span id="loginText">Giriş Yap</span>
+    <span id="loginLoader" class="loading" style="display: none;"></span>
+  </button>
+  <div id="error"></div>
 </div>
 
-<!-- İçerik -->
+<!-- Main Content -->
 <div id="content">
   <div class="header">
     <h1>📥 MURTECH İndirme Merkezi</h1>
+    <p style="color: #666; font-size: 16px; margin: 10px 0 0 0;">Yazılım ve sürücü dosyalarınız güvenli bir şekilde burada</p>
   </div>
 
-  <div class="category">
-    <h2>💻 MACH 3</h2>
-    <ul>
-      <li><a href="https://drive.google.com/file/d/1Exbo4IK-7CvBZgMx8yEzxV6Qaz11m0SI/view?usp=sharing" target="_blank">MACH3 Setup</a></li>
-      <li><a href="https://drive.google.com/file/d/1qFFRzr8h-I3deYKot1syYXTg1kBAOBxm/view?usp=sharing" target="_blank">MACH3 Lisans</a></li>
-      <li><a href="https://drive.google.com/file/d/1Rffn-cnw47T0odpHGxhpMbqUVwGQpHS5/view?usp=sharing" target="_blank">Murtech Dark Screenset</a></li>
-      <li><a href="#">Murtech Light Screenset</a></li>
-    </ul>
+  <div class="search-container">
+    <input type="text" class="search-box" id="searchBox" placeholder="🔍 Dosya ara..." onkeyup="searchFiles()">
   </div>
 
-  <div class="category">
-    <h2>🔧 MACH 3 Makine Ayarları</h2>
-    <ul>
-      <li><a href="https://drive.google.com/file/d/1FT_U-3BjwTWUaIDTK6iMzAWy2d21wMbx/view?usp=sharing" target="_blank">Rapide</a></li>
-      <li><a href="https://drive.google.com/file/d/1D8HsKEIsVQE_CAFS9PVieBtdxq5XTRB3/view?usp=sharing" target="_blank">Jovi XPS</a></li>
-      <li><a href="https://drive.google.com/file/d/1b0xE6g9-aLNYNvmIw5-6Ur8EjHWL0E5G/view?usp=sharing" target="_blank">Trexa</a></li>
-      <li><a href="https://drive.google.com/file/d/13gSMMCo4ldJeLXmofMdYHsBqOuZQXZJW/view?usp=sharing" target="_blank">Stro 4B</a></li>
-      <li><a href="https://drive.google.com/file/d/13gSMMCo4ldJeLXmofMdYHsBqOuZQXZJW/view?usp=sharing" target="_blank">Stro Eco</a></li>
-    </ul>
-  </div>
+  <div class="categories-grid">
+    <div class="category" data-category="mach3">
+      <h2><span class="category-icon">💻</span> MACH 3</h2>
+      <ul>
+        <li><a href="https://drive.google.com/file/d/1Exbo4IK-7CvBZgMx8yEzxV6Qaz11m0SI/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">📦</span>
+          <span class="download-text">MACH3 Setup</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+        <li><a href="https://drive.google.com/file/d/1qFFRzr8h-I3deYKot1syYXTg1kBAOBxm/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">🔑</span>
+          <span class="download-text">MACH3 Lisans</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+        <li><a href="https://drive.google.com/file/d/1Rffn-cnw47T0odpHGxhpMbqUVwGQpHS5/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">🌙</span>
+          <span class="download-text">Murtech Dark Screenset</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+        <li><span class="download-item" style="cursor: not-allowed; opacity: 0.6;">
+          <span class="download-icon">☀️</span>
+          <span class="download-text">Murtech Light Screenset</span>
+          <span class="status-indicator status-inactive">Yakında</span>
+        </span></li>
+      </ul>
+    </div>
 
-  <div class="category">
-    <h2>💻 ArtCAM</h2>
-    <ul>
-      <li><a href="https://drive.google.com/file/d/1gzudlUmYKZRfO-3Zk_J6mYE9KiuD1LfH/view?usp=sharing" target="_blank">ArtCAM 2012</a></li>
-      <li><a href="https://drive.google.com/file/d/1oYxB5s64ZDjJJsg2T0-gVLEDlltYV4fE/view?usp=sharing" target="_blank">ArtCAM 2008</a></li>
-      <li><a href="https://drive.google.com/file/d/1jSvdH1UWeoKKStjTWHaDPnxAmTztw7Tw/view?usp=sharing" target="_blank">Hızlı Tel Postprocessor</a></li>
-      <li><a href="https://drive.google.com/file/d/1bh7nbJl-biFkNzzhGSbbseY4bLypdyHq/view?usp=sharing" target="_blank">Sıcak Tel Postprocessor</a></li>
-    </ul>
-  </div>
+    <div class="category" data-category="makine-ayarlari">
+      <h2><span class="category-icon">🔧</span> MACH 3 Makine Ayarları</h2>
+      <ul>
+        <li><a href="https://drive.google.com/file/d/1FT_U-3BjwTWUaIDTK6iMzAWy2d21wMbx/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">⚙️</span>
+          <span class="download-text">Rapide</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+        <li><a href="https://drive.google.com/file/d/1D8HsKEIsVQE_CAFS9PVieBtdxq5XTRB3/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">⚙️</span>
+          <span class="download-text">Jovi XPS</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+        <li><a href="https://drive.google.com/file/d/1b0xE6g9-aLNYNvmIw5-6Ur8EjHWL0E5G/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">⚙️</span>
+          <span class="download-text">Trexa</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+        <li><a href="https://drive.google.com/file/d/13gSMMCo4ldJeLXmofMdYHsBqOuZQXZJW/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">⚙️</span>
+          <span class="download-text">Stro 4B</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+        <li><a href="https://drive.google.com/file/d/13gSMMCo4ldJeLXmofMdYHsBqOuZQXZJW/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">⚙️</span>
+          <span class="download-text">Stro Eco</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+      </ul>
+    </div>
 
-  <div class="category">
-    <h2>🖌️ CorelDRAW</h2>
-    <ul>
-      <li><a href="https://drive.google.com/file/d/1oWArWn6hBp1fbypxuYl_3iXvh71S8m9E/view?usp=sharing" target="_blank">Corel 12 TR</a></li>
-      <li><a href="#">Corel 12 ENG</a></li>
-    </ul>
-  </div>
+    <div class="category" data-category="artcam">
+      <h2><span class="category-icon">💻</span> ArtCAM</h2>
+      <ul>
+        <li><a href="https://drive.google.com/file/d/1gzudlUmYKZRfO-3Zk_J6mYE9KiuD1LfH/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">📦</span>
+          <span class="download-text">ArtCAM 2012</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+        <li><a href="https://drive.google.com/file/d/1oYxB5s64ZDjJJsg2T0-gVLEDlltYV4fE/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">📦</span>
+          <span class="download-text">ArtCAM 2008</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+        <li><a href="https://drive.google.com/file/d/1jSvdH1UWeoKKStjTWHaDPnxAmTztw7Tw/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">🔧</span>
+          <span class="download-text">Hızlı Tel Postprocessor</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+        <li><a href="https://drive.google.com/file/d/1bh7nbJl-biFkNzzhGSbbseY4bLypdyHq/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">🔧</span>
+          <span class="download-text">Sıcak Tel Postprocessor</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+      </ul>
+    </div>
 
-  <div class="category">
-    <h2>💻 DevFoam</h2>
-    <ul>
-      <li><a href="https://drive.google.com/file/d/1qRcE1G3WN96ZxtpUGti_JfWsxXEgkOnG/view?usp=sharing" target="_blank">DevFoam Pro 3</a></li>
-      <li><a href="https://drive.google.com/file/d/1eVXQcOIjkmD1ox--3bq11_jB0iODNgx0/view?usp=sharing" target="_blank">2 Eksen Eğitim</a></li>
-      <li><a href="https://drive.google.com/file/d/1NrJXOC2NktCqUpswqlzxRq9xFsk3XtHk/view?usp=sharing" target="_blank">4 Eksen Eğitim</a></li>
-      <li><a href="https://drive.google.com/file/d/1z9RK0aTFjvap-6kIsGrS90QyeZXGkwMo/view?usp=sharing" target="_blank">Yol Verme</a></li>
-    </ul>
-  </div>
+    <div class="category" data-category="coreldraw">
+      <h2><span class="category-icon">🖌️</span> CorelDRAW</h2>
+      <ul>
+        <li><a href="https://drive.google.com/file/d/1oWArWn6hBp1fbypxuYl_3iXvh71S8m9E/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">🇹🇷</span>
+          <span class="download-text">Corel 12 TR</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+        <li><span class="download-item" style="cursor: not-allowed; opacity: 0.6;">
+          <span class="download-icon">🇺🇸</span>
+          <span class="download-text">Corel 12 ENG</span>
+          <span class="status-indicator status-inactive">Yakında</span>
+        </span></li>
+      </ul>
+    </div>
 
-  <div class="category">
-    <h2>💻 Sürücüler</h2>
-    <ul>
-      <li><a href="https://drive.google.com/file/d/1VeksWigaxQI4ERtBPc2GrY0a6rRa1NPZ/view?usp=sharing" target="_blank">Shinlin Servo</a></li>
-    </ul>
+    <div class="category" data-category="devfoam">
+      <h2><span class="category-icon">💻</span> DevFoam</h2>
+      <ul>
+        <li><a href="https://drive.google.com/file/d/1qRcE1G3WN96ZxtpUGti_JfWsxXEgkOnG/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">📦</span>
+          <span class="download-text">DevFoam Pro 3</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+        <li><a href="https://drive.google.com/file/d/1eVXQcOIjkmD1ox--3bq11_jB0iODNgx0/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">🎓</span>
+          <span class="download-text">2 Eksen Eğitim</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+        <li><a href="https://drive.google.com/file/d/1NrJXOC2NktCqUpswqlzxRq9xFsk3XtHk/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">🎓</span>
+          <span class="download-text">4 Eksen Eğitim</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+        <li><a href="https://drive.google.com/file/d/1z9RK0aTFjvap-6kIsGrS90QyeZXGkwMo/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">🛣️</span>
+          <span class="download-text">Yol Verme</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+      </ul>
+    </div>
+
+    <div class="category" data-category="suruculer">
+      <h2><span class="category-icon">💻</span> Sürücüler</h2>
+      <ul>
+        <li><a href="https://drive.google.com/file/d/1VeksWigaxQI4ERtBPc2GrY0a6rRa1NPZ/view?usp=sharing" target="_blank" class="download-item">
+          <span class="download-icon">🔌</span>
+          <span class="download-text">Shinlin Servo</span>
+          <span class="status-indicator status-active">Aktif</span>
+        </a></li>
+      </ul>
+    </div>
   </div>
 </div>
 
+<!-- Scroll to top button -->
+<button class="scroll-to-top" id="scrollToTopBtn" onclick="scrollToTop()" title="Yukarı çık">
+  ↑
+</button>
+
 <script>
   function checkPassword() {
+    const loginBtn = document.getElementById("loginBtn");
+    const loginText = document.getElementById("loginText");
+    const loginLoader = document.getElementById("loginLoader");
     const pass = document.getElementById("password").value;
-    const correctPass = "servis123"; // şifreyi buradan değiştir
-    if(pass === correctPass){
-      document.getElementById("login").style.display = "none";
-      document.body.style.background = "#f7f7f7";
-      document.getElementById("content").style.display = "block";
-    } else {
-      document.getElementById("error").innerText = "❌ Hatalı şifre!";
-    }
+    const correctPass = "servis123";
+    
+    // Show loading animation
+    loginText.style.display = "none";
+    loginLoader.style.display = "inline-block";
+    loginBtn.disabled = true;
+    
+    // Simulate loading delay for better UX
+    setTimeout(() => {
+      if(pass === correctPass){
+        document.getElementById("login").style.display = "none";
+        document.body.style.background = "#f7f7f7";
+        document.getElementById("content").style.display = "block";
+      } else {
+        document.getElementById("error").innerHTML = "❌ Hatalı şifre! Lütfen tekrar deneyin.";
+        // Reset button state
+        loginText.style.display = "inline-block";
+        loginLoader.style.display = "none";
+        loginBtn.disabled = false;
+        document.getElementById("password").focus();
+      }
+    }, 800);
   }
 
   function handleKey(event) {
     if(event.key === "Enter") {
       checkPassword();
     }
+    // Clear error message when typing
+    if(document.getElementById("error").innerHTML) {
+      document.getElementById("error").innerHTML = "";
+    }
   }
+  
+  function searchFiles() {
+    const searchTerm = document.getElementById("searchBox").value.toLowerCase();
+    const categories = document.querySelectorAll('.category');
+    
+    categories.forEach(category => {
+      const categoryName = category.querySelector('h2').textContent.toLowerCase();
+      const downloadItems = category.querySelectorAll('.download-item');
+      let hasVisibleItems = false;
+      
+      downloadItems.forEach(item => {
+        const itemText = item.querySelector('.download-text').textContent.toLowerCase();
+        if (itemText.includes(searchTerm) || categoryName.includes(searchTerm)) {
+          item.parentElement.style.display = 'block';
+          hasVisibleItems = true;
+        } else {
+          item.parentElement.style.display = 'none';
+        }
+      });
+      
+      // Show/hide entire category based on search results
+      category.style.display = hasVisibleItems || searchTerm === '' ? 'block' : 'none';
+    });
+  }
+  
+  // Clear search when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("password").focus();
+  });
+  
+  // Scroll to top functionality
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+  
+  // Show/hide scroll to top button based on scroll position
+  window.addEventListener('scroll', function() {
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    if (window.pageYOffset > 300) {
+      scrollToTopBtn.classList.add('show');
+    } else {
+      scrollToTopBtn.classList.remove('show');
+    }
+  });
 </script>
-
 
 </body>
 </html>
